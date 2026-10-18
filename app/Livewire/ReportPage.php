@@ -20,10 +20,11 @@ class ReportPage extends Component
     public ?string $globalFixError = null;
     public ?string $latestFixLogId = null;
 
-    public function mount(string $id): void
+    public function mount(?string $id = null, ?string $documentId = null): void
     {
-        $this->documentId = $id;
-        $doc = Document::findOrFail($id);
+        $resolvedId = $id ?? $documentId ?? $this->documentId;
+        $this->documentId = $resolvedId;
+        $doc = Document::findOrFail($resolvedId);
         $latestRun = $doc->latestAnalysisRun;
         if ($latestRun) {
             $this->currentRunId = $latestRun->id;

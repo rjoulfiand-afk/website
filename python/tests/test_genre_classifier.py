@@ -12,10 +12,15 @@ from rapikan.rules.campus_profile import DEFAULT_PROFILE, CampusProfile
 from rapikan.rules.word.W012_chapter_order import W012ChapterOrder
 
 
+import hashlib
+
+
 def _make_para(text: str, para_id: str, is_heading: bool = False, heading_level: int = 1) -> Paragraph:
+    thash = hashlib.sha256(text.encode("utf-8")).hexdigest()[:16]
     return Paragraph(
         id=para_id,
         text=text,
+        text_hash=thash,
         style_name=f"Heading {heading_level}" if is_heading else "Normal",
         is_heading=is_heading,
         heading_level=heading_level if is_heading else None,

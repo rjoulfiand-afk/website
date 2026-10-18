@@ -91,7 +91,7 @@ class GenreTest extends TestCase
             'status' => JobStatus::DONE,
         ]);
 
-        Livewire::test(ReportPage::class, ['documentId' => $doc->id])
+        Livewire::test(ReportPage::class, ['id' => $doc->id])
             ->assertStatus(200)
             ->assertSee('Genre: Makalah / Paper Akademik')
             ->assertSee('92%')
